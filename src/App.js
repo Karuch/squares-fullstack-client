@@ -3,6 +3,7 @@ import { Squares, IncrementButton, ReductionButton } from "./Squares";
 import './components.css'
 
 function App() {
+zz
   return (
     <div className="App">
         <div className="parent">

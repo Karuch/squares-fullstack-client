@@ -1,4 +1,3 @@
-let count = 40; // 193 should be max otherwise out of div + should be determine in PSQL
 const request = async () => {
   try {
     const response = await fetch('http://localhost:5000/squares');
@@ -9,23 +8,21 @@ const request = async () => {
   }
 };
 request()
-console.log(count, "after count"); //can't because the function which change count is async and change after count being rendered so it stays 0
 
 
 
 
+function Squares({ count }) {
+  const squares_amount = Array.from({ length: count }, (_, index) => (
+    <div key={index}>Element {index + 1}</div>
+  ));
 
-function Squares() {
-    const squares_amount = Array.from({ length: count }, (_, index) => (
-      <div key={index}>Element {index + 1}</div>
-    ));
-  
-    let color = "green";
-    return (
-      <>
-        {squares_amount.map((index) => <div className="square" style={{backgroundColor: color}}></div>)}
-      </>
-    );
+  let color = "green";
+  return (
+    <>
+      {squares_amount.map((index) => <div className="square" style={{backgroundColor: color}}></div>)}
+    </>
+  );
 }
 
 
@@ -40,7 +37,7 @@ function Squares() {
 
 
 
-function IncrementButton(){
+function IncrementButton({ onIncrement }){
   const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -49,7 +46,7 @@ function IncrementButton(){
   const request = async () => {
     fetch('http://localhost:5000/increment', requestOptions)
   }
-
+  onIncrement();
   return(
     <button type="button" className="square" id="increment" 
     onClick={request} style={{backgroundColor: 'lightGreen'}}></button>
