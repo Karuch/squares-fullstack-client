@@ -3,25 +3,26 @@ const request = async () => {
   try {
     const response = await fetch('http://localhost:5000/squares');
     const data = await response.json();
-    count = data[0].squares_amount;
+    return data[0].squares_amount;
   } catch (error) {
     console.error('An error occurred:', error);
   }
 };
-request()
-console.log(count, "after count"); //can't because the function which change count is async and change after count being rendered so it stays 0
-
-
-
-
-
 
 
 function Squares() {
-    const squares_amount = Array.from({ length: count }, (_, index) => (
+    const squares_amount = Array.from({ length: request() }, (_, index) => (
       <div key={index}>Element {index + 1}</div>
     ));
   
+    useEffect(() => {
+      async function fetchData() {
+        const amount = await request();
+        setCount(amount);
+      }
+      fetchData();
+    }, []);
+
     let color = "green";
     return (
       <>
