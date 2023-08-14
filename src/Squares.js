@@ -15,6 +15,8 @@ console.log(count, "after count"); //can't because the function which change cou
 
 
 
+
+
 function Squares() {
     const squares_amount = Array.from({ length: count }, (_, index) => (
       <div key={index}>Element {index + 1}</div>
@@ -40,7 +42,7 @@ function Squares() {
 
 
 
-function IncrementButton(){
+function IncrementButton({ onIncrement }){
   const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -48,6 +50,8 @@ function IncrementButton(){
 
   const request = async () => {
     fetch('http://localhost:5000/increment', requestOptions)
+    onIncrement();
+    console.log("was rendered");
   }
 
   return(
