@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 let count = 40; // 193 should be max otherwise out of div + should be determine in PSQL
 const request = async () => {
   try {
@@ -11,22 +13,28 @@ const request = async () => {
 
 
 function Squares() {
-    const squares_amount = Array.from({ length: request() }, (_, index) => (
-      <div key={index}>Element {index + 1}</div>
-    ));
-  
+    const [squaresCount, setSquaresCount] = useState(0); // Initialize with 0
+
     useEffect(() => {
-      async function fetchData() {
-        const amount = await request();
-        setCount(amount);
-      }
-      fetchData();
+      request().then(result => {
+        // Set the squares count when the request completes
+        setSquaresCount(result);
+      });
     }, []);
 
     let color = "green";
+    const squares_amount = Array.from({ length: squaresCount }, (_, index) => (
+      <div key={index} className="square" style={{ backgroundColor: color }}></div>
+    ));
+  
+
     return (
       <>
-        {squares_amount.map((index) => <div className="square" style={{backgroundColor: color}}></div>)}
+        {squares_amount}
+        <button
+          type="button"
+          onClick={() => setSquaresCount(0)}
+        >Blue</button>
       </>
     );
 }

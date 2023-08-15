@@ -9,13 +9,13 @@ function App() {
   const handleIncrement = () => {
     setCount((prevCount) => prevCount + 1);
   };
-  
+  console.log(count);
   return (
     <div className="App">
         <div className="parent">
           <div className="div1"> 
             <IncrementButton onIncrement={handleIncrement}/>
-              <Squares/>
+            <Squares/>
             <ReductionButton/>
           </div>
           <div className="div2"> </div>
