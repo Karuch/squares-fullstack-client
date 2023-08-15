@@ -20,10 +20,10 @@ function Squares({count}) {
         // Set the squares count when the request completes
         setSquaresCount(result);
       });
-    }, [squaresCount]);
+    }, [count]);
 
     let color = "green";
-    const squares_amount = Array.from({ length: count }, (_, index) => (
+    const squares_amount = Array.from({ length: squaresCount }, (_, index) => (
       <div key={index} className="square" style={{ backgroundColor: color }}></div>
     ));
   
