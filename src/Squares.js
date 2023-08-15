@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-let count = 40; // 193 should be max otherwise out of div + should be determine in PSQL
 const request = async () => {
   try {
     const response = await fetch('http://localhost:5000/squares');
@@ -12,7 +11,8 @@ const request = async () => {
 };
 
 
-function Squares() {
+function Squares({count}) {
+    console.log("being rendered");
     const [squaresCount, setSquaresCount] = useState(0); // Initialize with 0
 
     useEffect(() => {
@@ -20,10 +20,10 @@ function Squares() {
         // Set the squares count when the request completes
         setSquaresCount(result);
       });
-    }, []);
+    }, [squaresCount]);
 
     let color = "green";
-    const squares_amount = Array.from({ length: squaresCount }, (_, index) => (
+    const squares_amount = Array.from({ length: count }, (_, index) => (
       <div key={index} className="square" style={{ backgroundColor: color }}></div>
     ));
   
@@ -31,10 +31,6 @@ function Squares() {
     return (
       <>
         {squares_amount}
-        <button
-          type="button"
-          onClick={() => setSquaresCount(0)}
-        >Blue</button>
       </>
     );
 }
@@ -52,20 +48,26 @@ function Squares() {
 
 
 function IncrementButton({ onIncrement }){
+  const [count, setCount] = useState(1);
   const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
   };
 
   const request = async () => {
-    fetch('http://localhost:5000/increment', requestOptions)
+    await fetch('http://localhost:5000/increment', requestOptions);
     onIncrement();
+    setCount(count + 1);
     console.log("was rendered");
-  }
+}
+
 
   return(
-    <button type="button" className="square" id="increment" 
-    onClick={request} style={{backgroundColor: 'lightGreen'}}></button>
+    <>
+      <button type="button" className="square" id="increment" 
+      onClick={request} style={{backgroundColor: 'lightGreen'}}></button>
+      <Squares count={count}/>
+    </>
   );
 }
 
@@ -80,9 +82,11 @@ function ReductionButton(){
   }
 
   return(
-    <button type="button" className="square" id="reduction" 
-    onClick={request} style={{backgroundColor: 'tomato'}}></button>
+    <>
+      <button type="button" className="square" id="reduction" 
+      onClick={request} style={{backgroundColor: 'tomato'}}></button>
+    </>
   );
 }
 
-export {Squares, IncrementButton, ReductionButton};
+export {IncrementButton, ReductionButton, Squares};

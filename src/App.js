@@ -1,5 +1,5 @@
 import './App.css';
-import { Squares, IncrementButton, ReductionButton } from "./Squares";
+import { IncrementButton, ReductionButton, Squares } from "./Squares";
 import './components.css'
 import { useState } from 'react';
 
@@ -15,7 +15,7 @@ function App() {
         <div className="parent">
           <div className="div1"> 
             <IncrementButton onIncrement={handleIncrement}/>
-            <Squares/>
+            <Squares count={9}/>
             <ReductionButton/>
           </div>
           <div className="div2"> </div>
