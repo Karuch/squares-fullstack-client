@@ -66,7 +66,6 @@ function IncrementButton({ onIncrement }){
     <>
       <button type="button" className="square" id="increment" 
       onClick={request} style={{backgroundColor: 'lightGreen'}}></button>
-      <Squares count={count}/>
     </>
   );
 }
@@ -88,7 +87,6 @@ function ReductionButton({ onReduction }){
 
   return(
     <>
-      <Squares count={count}/>
       <button type="button" className="square" id="reduction" 
       onClick={request} style={{backgroundColor: 'tomato'}}></button>
     </>
