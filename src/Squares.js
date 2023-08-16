@@ -71,22 +71,29 @@ function IncrementButton({ onIncrement }){
   );
 }
 
-function ReductionButton(){
+function ReductionButton({ onReduction }){
+  const [count, setCount] = useState(1);
   const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
   };
 
   const request = async () => {
-    fetch('http://localhost:5000/reduction', requestOptions)
-  }
+    await fetch('http://localhost:5000/reduction', requestOptions);
+    onReduction();
+    setCount(count + 1);
+    console.log("was rendered");
+}
+
 
   return(
     <>
+      <Squares count={count}/>
       <button type="button" className="square" id="reduction" 
       onClick={request} style={{backgroundColor: 'tomato'}}></button>
     </>
   );
 }
+
 
 export {IncrementButton, ReductionButton, Squares};

@@ -15,8 +15,7 @@ function App() {
         <div className="parent">
           <div className="div1"> 
             <IncrementButton onIncrement={handleIncrement}/>
-            <Squares count={9}/>
-            <ReductionButton/>
+            <ReductionButton onReduction={handleIncrement}/>
           </div>
           <div className="div2"> </div>
           <div className="div3"> </div>
