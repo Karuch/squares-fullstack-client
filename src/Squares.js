@@ -48,7 +48,6 @@ function Squares({count}) {
 
 
 function IncrementButton({ onIncrement }){
-  const [count, setCount] = useState(1);
   const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -57,7 +56,6 @@ function IncrementButton({ onIncrement }){
   const request = async () => {
     await fetch('http://localhost:5000/increment', requestOptions);
     onIncrement();
-    setCount(count + 1);
     console.log("was rendered");
 }
 
@@ -71,7 +69,6 @@ function IncrementButton({ onIncrement }){
 }
 
 function ReductionButton({ onReduction }){
-  const [count, setCount] = useState(1);
   const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -80,7 +77,6 @@ function ReductionButton({ onReduction }){
   const request = async () => {
     await fetch('http://localhost:5000/reduction', requestOptions);
     onReduction();
-    setCount(count + 1);
     console.log("was rendered");
 }
 
